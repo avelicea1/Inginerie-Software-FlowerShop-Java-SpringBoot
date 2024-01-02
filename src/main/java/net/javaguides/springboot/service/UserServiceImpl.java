@@ -34,9 +34,20 @@ public class UserServiceImpl implements UserService{
 	public User save(UserRegistrationDto registrationDto) {
 		User user = new User(registrationDto.getFirstName(), 
 				registrationDto.getLastName(), registrationDto.getEmail(),
-				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
-		
+				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role(registrationDto.getRole())));
 		return userRepository.save(user);
+	}
+
+	@Override
+	public boolean isUser(String username) {
+		User user = userRepository.findByEmail(username);
+		return user != null && user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_USER"));
+	}
+
+	@Override
+	public boolean isAdmin(String username) {
+		User user = userRepository.findByEmail(username);
+		return user != null && user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
 	}
 
 	@Override

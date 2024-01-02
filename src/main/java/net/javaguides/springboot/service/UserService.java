@@ -7,4 +7,7 @@ import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);
+	boolean isUser(String username);
+
+	boolean isAdmin(String username);
 }
