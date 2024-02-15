@@ -1,16 +1,18 @@
 package net.javaguides.springboot.messages;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@AllArgsConstructor
+@Slf4j
 public class MessageService {
-    @Autowired
     private MessageRepository catalog;
-    @Autowired private MessageRepository cart;
+    private MessageRepository cart;
 
     public List<Message> listAll(){
         return (List<Message>) catalog.findAll();

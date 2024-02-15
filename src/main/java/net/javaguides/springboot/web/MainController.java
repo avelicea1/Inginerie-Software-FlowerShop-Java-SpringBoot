@@ -1,5 +1,6 @@
 package net.javaguides.springboot.web;
 
+import net.javaguides.springboot.monitors.Monitor;
 import net.javaguides.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
 
+	private Monitor monitor = new Monitor();
+
 	@Autowired
 	private UserService userService;
 	@GetMapping("/login")
@@ -21,8 +24,10 @@ public class MainController {
 		if (authentication != null && authentication.isAuthenticated()) {
 			for (GrantedAuthority authority : authentication.getAuthorities()) {
 				if (authority.getAuthority().equals("ROLE_USER")) {
+					monitor.clientLogin();
 					return "redirect:/user-home";
 				} else if (authority.getAuthority().equals("ROLE_ADMIN")) {
+					monitor.adminLogin();
 					return "redirect:/admin-home";
 				}
 			}
@@ -36,8 +41,10 @@ public class MainController {
 		// Redirect based on the user's role
 		UserService userService = null;
 		if (userService.isUser(username)) {
+			monitor.clientLogin();
 			return "redirect:/user-home";
 		} else if (userService.isAdmin(username)) {
+			monitor.adminLogin();
 			return "redirect:/admin-home";
 		}
 		return "redirect:/login?error"; // Redirect to login page with an error parameter

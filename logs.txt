@@ -1,0 +1,55 @@
+The item 11 was added to a cart
+The item 11 was added to a cart
+The item 11 was added to a cart
+A client tried to add the item 10 but it was out of stock
+3.0 iterations of the item 11 were deleted from a cart
+An admin has deleted the item with ID: 11
+
+
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+4.0 iterations of the item 20 were deleted from a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+3.0 iterations of the item 20 were deleted from a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+The item 20 was added to a cart
+A client tried to add the item 10 but it was out of stock
+The item 20 was added to a cart
+6.0 iterations of the item 20 were deleted from a cart
+A client has just logged in 
+A client tried to add the item 10 but it was out of stock
+The item 20 was added to a cart
+1.0 iterations of the item 20 were deleted from a cart
+An admin has just logged in 
+An admin has deleted the item with ID: 55
+
+
+A client has just logged in 
+An admin has just logged in 
+A client has just logged in 
+An admin has just logged in 
+A new flower has been added 
+An admin has deleted the item with ID: 70
+A client has just logged in 
+A client tried to add the item 10 but it was out of stock
+The item 20 was added to a cart
+The item 20 was added to a cart
+1.0 iterations of the item 20 were deleted from a cart
+A client has just logged in 
+A client has just logged out
+A client has just logged in 
+A client has just logged out
+An admin has just logged in 
+An admin has just logged out
+An admin has just logged in 
+A client has just logged in 
+A client has just logged in 
+A client has just logged in 
+A client has just logged in 

@@ -1,5 +1,7 @@
 package net.javaguides.springboot.config;
 
+import net.javaguides.springboot.messages.MessageRepository;
+import net.javaguides.springboot.messages.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,27 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers(
-//				 "/registration**",
-//	                "/js/**",
-//	                "/css/**",
-//	                "/img/**").permitAll()
-//		.anyRequest().authenticated()
-//		.and()
-//		.formLogin()
-//		.loginPage("/login")
-//		.permitAll()
-//		.and()
-//		.logout()
-//		.invalidateHttpSession(true)
-//		.clearAuthentication(true)
-//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//		.logoutSuccessUrl("/login?logout")
-//		.permitAll();
-//	}
-		@Override
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
 					.antMatchers("/login", "/registration", "/js/**", "/css/**", "/img/**").permitAll()

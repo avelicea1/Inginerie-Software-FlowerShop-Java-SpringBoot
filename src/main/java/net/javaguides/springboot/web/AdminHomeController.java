@@ -4,6 +4,7 @@ import net.javaguides.springboot.cart.ItemService;
 import net.javaguides.springboot.messages.Message;
 import net.javaguides.springboot.messages.MessageNotFoundException;
 import net.javaguides.springboot.messages.MessageService;
+import net.javaguides.springboot.monitors.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 @Controller
 public class AdminHomeController {
+    private Monitor monitor = new Monitor();
     @Autowired
     private MessageService messageService;
     @Autowired
@@ -35,6 +37,7 @@ public class AdminHomeController {
     public String saveMessage(Message message, RedirectAttributes ra) {
         messageService.save(message);
         ra.addFlashAttribute("msg", "The message has been saved successfully");
+        monitor.adminAdd();
         return "redirect:/admin-home";
     }
     @GetMapping("/admin-home/edit/{id}")
@@ -53,11 +56,15 @@ public class AdminHomeController {
     @GetMapping("/admin-home/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra){
         try {
+
+            monitor.adminDeleteItem(id);
+
             messageService.delete(id);
             ra.addFlashAttribute("msg", "the user ID " + id + "has been deleted.");
         } catch (MessageNotFoundException e) {
             ra.addFlashAttribute("msg", e.getMessage());
         }
+        catch(Exception e) {}
 
         return "redirect:/admin-home";
     }

@@ -6,6 +6,7 @@ import net.javaguides.springboot.cart.ItemService;
 import net.javaguides.springboot.messages.Message;
 import net.javaguides.springboot.messages.MessageNotFoundException;
 import net.javaguides.springboot.messages.MessageService;
+import net.javaguides.springboot.monitors.Monitor;
 import net.javaguides.springboot.recommenderSystem.Personality;
 import net.javaguides.springboot.recommenderSystem.Recommender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+//import java.io.FileWriter;
 import java.util.List;
+
 
 @Controller
 public class UserHomeController {
+
+    public Monitor monitor = new Monitor();
     @Autowired
     private MessageService messageService;
     @Autowired
@@ -65,6 +71,7 @@ public class UserHomeController {
     @GetMapping("/user-home/addToCart/{id}")
     public String addToCartUser(@PathVariable("id") Integer id, RedirectAttributes ra){
         try {
+
             Message m = messageService.get(id);
             if(m.getStock() > 0) {
                 m.setStock(m.getStock() - 1);
@@ -85,10 +92,14 @@ public class UserHomeController {
 
                 itemService.save(i);
 
+                monitor.addItemSuccess(id);
+
                 ra.addFlashAttribute("msg", "the item ID " + id + " has been added to your cart.");
             }
             else
             {
+                monitor.addItemFail(id);
+
                 ra.addFlashAttribute("msg", "the item ID " + id + " has not been added to your cart. --- INSUFFICIENT STOCK");
             }
         }catch (MessageNotFoundException e) {
@@ -96,17 +107,24 @@ public class UserHomeController {
         } catch (ItemNotFoundException e) {
             throw new RuntimeException(e);
         }
+        catch(Exception e) {}
 
         return "redirect:/cart";
     }
     @GetMapping("/cart/delete/{id}")
     public String deleteUserC(@PathVariable("id") Integer id, RedirectAttributes ra){
         try {
+            Item m = itemService.get(id);
+
+
+            monitor.deletedItem(id,m.getQuantity());
+
             itemService.delete(id);
             ra.addFlashAttribute("msg", "the user ID " + id + "has been deleted.");
         } catch (ItemNotFoundException e) {
             ra.addFlashAttribute("msg", e.getMessage());
         }
+        catch(Exception e) {}
 
         return "redirect:/cart";
     }
